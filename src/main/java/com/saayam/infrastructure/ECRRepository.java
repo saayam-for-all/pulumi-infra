@@ -1,4 +1,4 @@
-package com.saayaam.infrastructure;
+package com.saayam.infrastructure;
 
 import com.pulumi.aws.ecr.Repository;
 import com.pulumi.aws.ecr.RepositoryArgs;

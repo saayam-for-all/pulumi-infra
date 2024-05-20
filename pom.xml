@@ -15,7 +15,7 @@
         <pulumi.version>0.10.0</pulumi.version>
         <pulumi-aws.version>6.32.0</pulumi-aws.version>
         <pulumi-postgres.version>3.11.0</pulumi-postgres.version>
-        <mainClass>com.saayaam.infrastructure.App</mainClass>
+        <mainClass>com.saayam.infrastructure.App</mainClass>
         <mainArgs/>
     </properties>
 

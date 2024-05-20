@@ -1,4 +1,4 @@
-package com.saayaam.infrastructure;
+package com.saayam.infrastructure;
 
 import com.pulumi.aws.eks.NodeGroupArgs;
 import com.pulumi.aws.iam.Role;

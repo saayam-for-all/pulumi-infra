@@ -1,4 +1,4 @@
-package com.saayaam.infrastructure.metadata;
+package com.saayam.infrastructure.metadata;
 
 public enum InfrastructureModule {
   eks,

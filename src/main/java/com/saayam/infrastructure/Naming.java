@@ -1,4 +1,4 @@
-package com.saayaam.infrastructure;
+package com.saayam.infrastructure;
 
 import com.google.common.base.Strings;
 import lombok.Getter;

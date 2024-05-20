@@ -1,11 +1,11 @@
-package com.saayaam.infrastructure;
+package com.saayam.infrastructure;
 
 import com.google.common.base.Splitter;
 import com.pulumi.Config;
 import com.pulumi.Pulumi;
 import com.pulumi.core.Output;
-import com.saayaam.infrastructure.metadata.AZ;
-import com.saayaam.infrastructure.metadata.InfrastructureModule;
+import com.saayam.infrastructure.metadata.AZ;
+import com.saayam.infrastructure.metadata.InfrastructureModule;
 
 import java.util.List;
 import java.util.Optional;

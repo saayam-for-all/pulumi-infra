@@ -1,9 +1,9 @@
-package com.saayaam.infrastructure;
+package com.saayam.infrastructure;
 
 import com.pulumi.aws.ec2.*;
 import com.pulumi.core.Output;
 import com.pulumi.resources.*;
-import com.saayaam.infrastructure.metadata.AZ;
+import com.saayam.infrastructure.metadata.AZ;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

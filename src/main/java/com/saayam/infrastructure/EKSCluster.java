@@ -1,4 +1,4 @@
-package com.saayaam.infrastructure;
+package com.saayam.infrastructure;
 
 import com.pulumi.aws.eks.Cluster;
 import com.pulumi.aws.eks.ClusterArgs;
