@@ -3,7 +3,8 @@ config:
   timely:az1: us-east-1a
   timely:az2: us-east-1b
 
-  timely:productName: saayaam 
+  timely:productName: saayaam
+  timely:modules:
   timely:vpcCIDR: 10.10.0.0/16
   timely:privateCIDR: 10.10.3.0/24
   timely:privateCIDR2: 10.10.4.0/24

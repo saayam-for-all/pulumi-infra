@@ -1,9 +1,16 @@
 package com.saayaam.infrastructure;
 
+import com.google.common.base.Splitter;
 import com.pulumi.Config;
 import com.pulumi.Pulumi;
 import com.pulumi.core.Output;
 import com.saayaam.infrastructure.metadata.AZ;
+import com.saayaam.infrastructure.metadata.InfrastructureModule;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class App {
 
@@ -17,10 +24,19 @@ public class App {
                 config.require("productName"),
                 ctx.stackName());
 
+            Set<InfrastructureModule> modules = Optional.of(config.require("modules"))
+                .map(m -> Splitter.on(',')
+                    .trimResults()
+                    .omitEmptyStrings()
+                    .splitToList(m))
+                .stream()
+                .flatMap(List::stream)
+                .map(String::toLowerCase)
+                .map(InfrastructureModule::valueOf)
+                .collect(Collectors.toSet());
+
             AZ az1 = AZ.fromAZString(config.require("az1"));
             AZ az2 = AZ.fromAZString(config.require("az2"));
-            String productName = config.require("productName");
-
             Networking networking = new Networking(
                 "networking",
                 Networking.NetworkingArgs.builder()
@@ -34,14 +50,16 @@ public class App {
                     .build(),
                 naming);
 
-            EKSRole eksRole = new EKSRole("eks-role", naming);
-            EKSCluster eksCluster = new EKSCluster("eks-cluster", naming, networking, eksRole);
-            EKSNodeGroup eksNodeGroup = new EKSNodeGroup(
-                "eks-node-group", naming, networking, eksCluster);
+            if (modules.contains(InfrastructureModule.eks)) {
+                EKSRole eksRole = new EKSRole("eks-role", naming);
+                EKSCluster eksCluster = new EKSCluster("eks-cluster", naming, networking, eksRole);
+                EKSNodeGroup eksNodeGroup = new EKSNodeGroup(
+                    "eks-node-group", naming, networking, eksCluster);
 
-            ctx.export("eksClusterEndpointOidcIssuerUrl", eksCluster.getCluster().identities()
-                .applyValue(identities -> identities.getFirst().oidcs().getFirst().issuer().orElseThrow()));
-            ctx.export("eksClusterName", eksCluster.getCluster().name());
+                ctx.export("eksClusterEndpointOidcIssuerUrl", eksCluster.getCluster().identities()
+                    .applyValue(identities -> identities.getFirst().oidcs().getFirst().issuer().orElseThrow()));
+                ctx.export("eksClusterName", eksCluster.getCluster().name());
+            }
         });
     }
 }
